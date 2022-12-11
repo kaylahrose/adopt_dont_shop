@@ -111,6 +111,7 @@ RSpec.describe 'The application show page' do
     visit "/applications/#{application.id}"
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+    expect(page).to have_no_content("Lobster")
     fill_in :query, with: 'Lobster'
     click_button 'Search'
 
@@ -154,6 +155,8 @@ RSpec.describe 'The application show page' do
       expect(application.description).to eq("I love pets")
       expect(application.status).to eq("Pending")
       expect(page).to have_no_content("Adopt this pet")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(pet_1.name)
   end
 
    it 'does not show submit application button with no pets added' do
@@ -166,6 +169,7 @@ RSpec.describe 'The application show page' do
                                       status: "In Progress")
       visit "/applications/#{application.id}"
       expect(page).to have_no_content("Submit Application")
+      expect(page).to have_no_field("Description")
    end
 
 #    As a visitor
