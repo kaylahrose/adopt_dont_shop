@@ -32,4 +32,5 @@
     <% if @application.status == "In Progress" %>
     <%= button_to("Adopt this pet", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}", method: :post)%>
     <% end %>
+  </div>
 <% end %>
