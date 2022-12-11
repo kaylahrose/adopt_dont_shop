@@ -19,4 +19,22 @@ RSpec.describe 'admin shelter index' do
     expect(@shelter_3.name).to appear_before(@shelter_2.name)
     expect(@shelter_2.name).to appear_before(@shelter_1.name)
   end
+
+#   As a visitor
+# When I visit the admin shelter index ('/admin/shelters')
+# Then I see a section for "Shelter's with Pending Applications"
+# And in this section I see the name of every shelter that has a pending application
+  it 'displays shelters with pending applications' do
+    application = Application.create!(name: "Jimbo Kepler", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "Pending")
+    visit "/admin/shelters"
+    # pending applications have pets, shelters have pets
+    # join applications with shelters by pet id
+    expect(page).to have_content("Shelters with Pending Applications")
+  end
 end
