@@ -32,7 +32,7 @@ RSpec.describe 'the admin applications show page' do
       click_button "Approve for adoption"
     end
 
-    expect(current_path).to eq("admin/applications/#{application.id}")
+    expect(current_path).to eq("/admin/applications/#{application.id}")
     within "div#pet-#{pet_1.id}" do
       expect(page).to have_no_button("Approve for adoption")
       expect(page).to have_content("Approved")
@@ -43,7 +43,6 @@ RSpec.describe 'the admin applications show page' do
     end
 
   # add additional column to join table
-  # drop database, then delete migration file for pet app, recreate pet app with additional column called approved, boolean, no validation to accept nil as default
   # branching in view, first branch, "when bool column is nil, then button is rendered to approve pet for the application", 
   # second branch, "call a method on the pet (new model method) that retrieves an approve/rejection message"
   end

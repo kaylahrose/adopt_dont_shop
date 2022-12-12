@@ -1,0 +1,28 @@
+<h2>Application</h2>
+<br>
+<h3>Name: <%= @application.name %> </h3>
+<h3>Address: <%= @application.address %> </h3>
+<h3>City: <%= @application.city %> </h3>
+<h3>State: <%= @application.state %> </h3>
+<h3>Zip code: <%= @application.zipcode %> </h3>
+
+<h3> <%= @application.status %> </h3>
+<h4> <%= @application.description %> </h4>
+
+<h3>Pets Added to Application: <%@pets.each do |pet| %>
+    <%= link_to(pet.name, "/pets/#{pet.id}") %> <br>
+<% end %> </h3>
+
+<% @pets.each do |pet| %>
+  <div id="pet-<%=pet.id%>">
+    <p>Name: <%= pet.name %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Age: <%= pet.age %></p>
+    <p>Adoptable: <%= pet.adoptable %></p>
+    <% if @pet_applications.find_by(pet_id: pet.id).approved == nil %>
+    <%= button_to("Approve for adoption", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}&approved=true", method: :patch)%>
+    <% else %>
+    <%= @pet_applications.find_by(pet_id: pet.id).get_approval_message%>
+    <% end %>
+  </div>
+<% end %>
