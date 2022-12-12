@@ -20,7 +20,8 @@
     <p>Age: <%= pet.age %></p>
     <p>Adoptable: <%= pet.adoptable %></p>
     <% if @pet_applications.find_by(pet_id: pet.id).approved == nil %>
-    <%= button_to("Approve for adoption", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}&approved=true", method: :patch)%>
+      <%= button_to("Approve for adoption", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}&approved=true", method: :patch)%>
+      <%= button_to("Reject for adoption", "/pet_applications?application_id=#{@application.id}&pet_id=#{pet.id}&approved=false", method: :patch)%>
     <% else %>
     <%= @pet_applications.find_by(pet_id: pet.id).get_approval_message%>
     <% end %>
