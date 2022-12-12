@@ -4,7 +4,6 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zipcode, presence: true, numericality: true
-  # validates :description, presence: true
   validates :status, presence: true
   
   has_many :pet_applications
