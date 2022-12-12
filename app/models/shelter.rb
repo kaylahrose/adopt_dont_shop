@@ -16,6 +16,10 @@ class Shelter < ApplicationRecord
       .order("pets_count DESC")
   end
 
+  def self.get_shelters_with_pending_applications
+    Shelter.select(:id, :name).distinct.joins(:pets => { :pet_applications => :application }).where('applications.status = ?', "Pending")
+  end
+
   def pet_count
     pets.count
   end
@@ -30,9 +34,5 @@ class Shelter < ApplicationRecord
 
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
-  end
-
-  def get_pending_applications
-    binding.pry
   end
 end

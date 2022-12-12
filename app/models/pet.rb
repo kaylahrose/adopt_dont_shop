@@ -2,7 +2,9 @@ class Pet < ApplicationRecord
   validates :name, presence: true
   validates :age, presence: true, numericality: true
   belongs_to :shelter
-
+  
+  has_many :pet_applications
+  has_many :applications, through: :pet_applications
   def shelter_name
     shelter.name
   end
@@ -12,9 +14,6 @@ class Pet < ApplicationRecord
   end
 
   def get_applications
-    pet_apps = PetApplication.where(:pet_id == self.id)
-    pet_apps = pet_apps.map do |pet_app|
-      Application.find(pet_app[:application_id])
-    end
+    self.applications
   end
 end

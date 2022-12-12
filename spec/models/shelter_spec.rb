@@ -68,36 +68,36 @@ RSpec.describe Shelter, type: :model do
       end
     end
 
-    # it 'returns all applications with pending status' do
-    #   application = Application.create!(name: "Brittney Spears", 
-    #                                   address: "000 Street Name",
-    #                                   city: "City Name",
-    #                                   state: "STATE",
-    #                                   zipcode: 00000, 
-    #                                   description: "I love animals and they love me!", 
-    #                                   status: "Pending")
-    #   application2 = Application.create!(name: "Donald Glover", 
-    #                                   address: "000 Street Name",
-    #                                   city: "City Name",
-    #                                   state: "STATE",
-    #                                   zipcode: 00000, 
-    #                                   description: "I love animals and they love me!", 
-    #                                   status: "Pending")      
-    #   application3 = Application.create!(name: "Metro Boomin", 
-    #                                   address: "000 Street Name",
-    #                                   city: "City Name",
-    #                                   state: "STATE",
-    #                                   zipcode: 00000, 
-    #                                   description: "I love animals and they love me!", 
-    #                                   status: "In Progress")                               
-    #   pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
-    #   pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-    #   PetApplication.create!(pet: pet_1, application: application)
-    #   PetApplication.create!(pet: pet_2, application: application)
-    #   PetApplication.create!(pet: pet_2, application: application2)
-    #   PetApplication.create!(pet: pet_1, application: application2)
+    it 'returns all applications with pending status' do
+      application = Application.create!(name: "Brittney Spears", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "Pending")
+      application2 = Application.create!(name: "Donald Glover", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "Pending")      
+      application3 = Application.create!(name: "Metro Boomin", 
+                                      address: "000 Street Name",
+                                      city: "City Name",
+                                      state: "STATE",
+                                      zipcode: 00000, 
+                                      description: "I love animals and they love me!", 
+                                      status: "In Progress")                               
+      pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+      pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
+      PetApplication.create!(pet: pet_1, application: application)
+      PetApplication.create!(pet: pet_2, application: application)
+      PetApplication.create!(pet: pet_2, application: application2)
+      PetApplication.create!(pet: pet_1, application: application2)
 
-    #   expect(@shelter_1.get_pending_applications).to eq([application, application2])
-    # end
+      expect(Shelter.get_shelters_with_pending_applications).to eq([@shelter_1])
+    end
   end
 end
