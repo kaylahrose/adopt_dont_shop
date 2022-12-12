@@ -13,7 +13,4 @@ class Pet < ApplicationRecord
     where(adoptable: true)
   end
 
-  def get_applications
-    self.applications
-  end
 end
