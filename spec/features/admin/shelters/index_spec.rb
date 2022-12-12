@@ -25,16 +25,41 @@ RSpec.describe 'admin shelter index' do
 # Then I see a section for "Shelter's with Pending Applications"
 # And in this section I see the name of every shelter that has a pending application
   it 'displays shelters with pending applications' do
-    application = Application.create!(name: "Jimbo Kepler", 
-                                      address: "000 Street Name",
-                                      city: "City Name",
-                                      state: "STATE",
-                                      zipcode: 00000, 
-                                      description: "I love animals and they love me!", 
-                                      status: "Pending")
+    application = Application.create!(name: "Brittney Spears", 
+      address: "000 Street Name",
+      city: "City Name",
+      state: "STATE",
+      zipcode: 00000, 
+      description: "I love animals and they love me!", 
+      status: "Pending")
+    application2 = Application.create!(name: "Donald Glover", 
+          address: "000 Street Name",
+          city: "City Name",
+          state: "STATE",
+          zipcode: 00000, 
+          description: "I love animals and they love me!", 
+          status: "Pending")      
+    application3 = Application.create!(name: "Metro Boomin", 
+          address: "000 Street Name",
+          city: "City Name",
+          state: "STATE",
+          zipcode: 00000, 
+          description: "I love animals and they love me!", 
+          status: "In Progress")                               
+    pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+    pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_2.id)
+    PetApplication.create!(pet: pet_1, application: application)
+    PetApplication.create!(pet: pet_2, application: application)
+    PetApplication.create!(pet: pet_2, application: application2)
+    PetApplication.create!(pet: pet_1, application: application2)
     visit "/admin/shelters"
-    # pending applications have pets, shelters have pets
-    # join applications with shelters by pet id
-    expect(page).to have_content("Shelters with Pending Applications")
+  
+    
+    within "div#pending_apps" do
+      expect(page).to have_content("Shelters with Pending Applications:")
+      expect(page).to have_content(@shelter_1.name)
+      expect(page).to have_content(@shelter_2.name)
+      expect(page).to have_no_content(@shelter_3.name)
+    end
   end
 end
