@@ -17,7 +17,6 @@ RSpec.describe 'the admin applications show page' do
     PetApplication.create!(pet: pet_2, application: application)
 
     visit "/admin/applications/#{application.id}"
-
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
     within "div#pet-#{pet_1.id}" do
